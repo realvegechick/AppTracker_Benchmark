@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Benchmark</string>
+    <string name="tab_text_1">环境监测</string>
+    <string name="tab_text_2">系统服务</string>
+</resources>
