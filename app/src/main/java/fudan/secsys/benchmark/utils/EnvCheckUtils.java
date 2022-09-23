@@ -54,21 +54,22 @@ public class EnvCheckUtils {
         }
         return buildTags;
     }
-    static public void checkFrida(TextView tv){
+    static public void checkFrida(TextView tv,int start,int end){
         Socket socket;
-        for(int i=0; i<=65537;i++){
+        for(int i=start; i<end;i++){
             try {
-                Log.i(TAG,"port:"+i);
                 socket = new Socket(InetAddress.getLocalHost(), i);
                 socket.setSoTimeout(1000);
                 InputStream input=socket.getInputStream();
                 OutputStream output=socket.getOutputStream();
-                try {
-                    output.write("\00".getBytes());
-                    output.write("AUTH\r\n".getBytes());
-                    byte[] buf = new byte[1024];
-                    input.read(buf);
-                }catch (Exception e){
+                output.write("\00".getBytes());
+                output.write("AUTH\r\n".getBytes());
+                socket.shutdownOutput();
+                byte[] buf = new byte[1024];
+                input.read(buf);
+                String s=new String(buf);
+                Log.i(TAG,s);
+                if(s.contains("Content-Length: 0")){
                     tv.setTextColor(tv.getContext().getResources().getColor(R.color.red));
                     tv.setText("Frida: server running on port "+i);
                     return;
@@ -77,8 +78,6 @@ public class EnvCheckUtils {
 
             }
         }
-        tv.setTextColor(tv.getContext().getResources().getColor(R.color.green));
-        tv.setText("FRIDA: false");
     }
 
 

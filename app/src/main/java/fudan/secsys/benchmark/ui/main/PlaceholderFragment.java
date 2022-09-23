@@ -12,6 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import fudan.secsys.benchmark.R;
 import fudan.secsys.benchmark.utils.EnvCheckUtils;
 
@@ -81,14 +86,13 @@ public class PlaceholderFragment extends Fragment {
         root.findViewById(R.id.checkFrida).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyRunner.cnt=0;
                 fridaView.setText("Frida: detecting...");
-                Runnable r=new Runnable(){
-                    public void run() {
-                        EnvCheckUtils.checkFrida(fridaView);
-                    }
-                };
-                Thread t=new Thread(r);
-                t.start();
+                ThreadPoolExecutor pool=new ThreadPoolExecutor(64,64,0, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(64));
+                for(int i=0;i<64;i++){
+                    MyRunner runner=new MyRunner(fridaView,64,i*1024,(i+1)*1024);
+                    pool.execute(runner);
+                }
             }
         });
 
