@@ -1,6 +1,7 @@
 package fudan.secsys.benchmark;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
@@ -26,8 +27,5 @@ public class MainActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText(R.string.tab_text_1));
         tabs.addTab(tabs.newTab().setText(R.string.tab_text_2));
         tabs.setupWithViewPager(viewPager);
-    }
-    public void checkRoot(View view){
-
     }
 }

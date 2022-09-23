@@ -45,31 +45,57 @@ public class PlaceholderFragment extends Fragment {
         }
     }
     private  View createEnvCheckView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View root = inflater.inflate(R.layout.fragment_envcheck, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
+        final View root = inflater.inflate(R.layout.fragment_envcheck, container, false);
+        final TextView rootView = root.findViewById(R.id.root_label);
+        rootView.setText("Root: Unknown");
+        final TextView fridaView = root.findViewById(R.id.frida_label);
+        fridaView.setText("Frida: Unknown");
+        final TextView buildView = root.findViewById(R.id.build_label);
+        buildView.setText("Build: Unknown");
         root.findViewById(R.id.checkRoot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Root："+EnvCheckUtils.checkFrida(), Toast.LENGTH_SHORT).show();
+                boolean res=EnvCheckUtils.checkRoot();
+                if(res){
+                    rootView.setTextColor(getResources().getColor(R.color.red));
+                }
+                else{
+                    rootView.setTextColor(getResources().getColor(R.color.green));
+                }
+                rootView.setText("Root: "+res);
             }
         });
         root.findViewById(R.id.checkBuild).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Build："+EnvCheckUtils.checkFrida(), Toast.LENGTH_SHORT).show();
+                String res=EnvCheckUtils.checkBuild();
+                if(res.contains("test")||res.contains("debug")){
+                    buildView.setTextColor(getResources().getColor(R.color.red));
+                }
+                else{
+                    buildView.setTextColor(getResources().getColor(R.color.green));
+                }
+                buildView.setText(res);
             }
         });
         root.findViewById(R.id.checkFrida).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), "FRIDA："+EnvCheckUtils.checkFrida(), Toast.LENGTH_SHORT).show();
+                fridaView.setText("Frida: detecting...");
+                Runnable r=new Runnable(){
+                    public void run() {
+                        EnvCheckUtils.checkFrida(fridaView);
+                    }
+                };
+                Thread t=new Thread(r);
+                t.start();
             }
         });
-        textView.setText("Hello from 环境检测");
+
         return root;
     }
     private  View createInvokeServiceView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View root = inflater.inflate(R.layout.fragment_invokeservice, container, false);
+        final View root = inflater.inflate(R.layout.fragment_invokeservice, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
         textView.setText("Hello from 系统服务");
         return root;
