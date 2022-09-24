@@ -32,7 +32,7 @@ public class EnvCheckUtils {
                 "/system/bin/su", "/system/sd/xbin/su", "/system/bin/failsafe/su",
                 "/system/bin/cufsdosck", "/system/xbin/cufsdosck", "/system/bin/cufsmgr",
                 "/system/xbin/cufsmgr", "/system/bin/cufaevdd", "/system/xbin/cufaevdd",
-                "/system/bin/conbb", "/system/xbin/conbb","/dev/root"};
+                "/system/bin/conbb", "/system/xbin/conbb"};
         try {
             file = new File("/system/app/Superuser.apk");
             if (file.exists()) {
@@ -79,7 +79,6 @@ public class EnvCheckUtils {
                     return;
                 }
             }catch (Exception x) {
-                x.printStackTrace();
             }
         }
     }

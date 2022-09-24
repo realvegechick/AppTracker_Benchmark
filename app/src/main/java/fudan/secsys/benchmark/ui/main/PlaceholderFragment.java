@@ -2,6 +2,8 @@ package fudan.secsys.benchmark.ui.main;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,12 +91,20 @@ public class PlaceholderFragment extends Fragment {
         });
         root.findViewById(R.id.checkFrida).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
+                Handler handler=new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        v.setEnabled(true);
+                    }
+                };
+
+                v.setEnabled(false);
                 MyRunner.cnt=0;
                 fridaView.setText("Frida: detecting...");
                 ThreadPoolExecutor pool=new ThreadPoolExecutor(64,64,0, TimeUnit.SECONDS,new ArrayBlockingQueue<Runnable>(64));
                 for(int i=0;i<64;i++){
-                    MyRunner runner=new MyRunner(fridaView,64,i*1024,(i+1)*1024);
+                    MyRunner runner=new MyRunner(handler,fridaView,64,i*1024,(i+1)*1024);
                     pool.execute(runner);
                 }
             }
@@ -134,4 +144,5 @@ public class PlaceholderFragment extends Fragment {
         textView.setText("Hello from 系统服务");
         return root;
     }
+
 }
