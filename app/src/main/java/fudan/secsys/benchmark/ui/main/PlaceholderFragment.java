@@ -57,6 +57,10 @@ public class PlaceholderFragment extends Fragment {
         fridaView.setText("Frida: Unknown");
         final TextView buildView = root.findViewById(R.id.build_label);
         buildView.setText("Build: Unknown");
+        final TextView magiskView = root.findViewById(R.id.magisk_label);
+        magiskView.setText("Magisk: Unknown");
+        final TextView emulatorView = root.findViewById(R.id.emulator_label);
+        emulatorView.setText("Emulator: Unknown");
         root.findViewById(R.id.checkRoot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,13 +78,13 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String res=EnvCheckUtils.checkBuild();
-                if(res.contains("test")||res.contains("debug")){
+                if(res.contains("test")||res.contains("debug")||res.contains("eng")){
                     buildView.setTextColor(getResources().getColor(R.color.red));
                 }
                 else{
                     buildView.setTextColor(getResources().getColor(R.color.green));
                 }
-                buildView.setText(res);
+                buildView.setText("Build: "+res);
             }
         });
         root.findViewById(R.id.checkFrida).setOnClickListener(new View.OnClickListener() {
@@ -93,6 +97,32 @@ public class PlaceholderFragment extends Fragment {
                     MyRunner runner=new MyRunner(fridaView,64,i*1024,(i+1)*1024);
                     pool.execute(runner);
                 }
+            }
+        });
+        root.findViewById(R.id.checkMagisk).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean res=EnvCheckUtils.checkMagisk();
+                if(res){
+                    magiskView.setTextColor(getResources().getColor(R.color.red));
+                }
+                else{
+                    magiskView.setTextColor(getResources().getColor(R.color.green));
+                }
+                magiskView.setText("Magisk: "+res);
+            }
+        });
+        root.findViewById(R.id.checkEmulator).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean res=EnvCheckUtils.checkEmulator(root.getContext());
+                if(res){
+                    emulatorView.setTextColor(getResources().getColor(R.color.red));
+                }
+                else{
+                    emulatorView.setTextColor(getResources().getColor(R.color.green));
+                }
+                emulatorView.setText("Emulator: "+res);
             }
         });
 

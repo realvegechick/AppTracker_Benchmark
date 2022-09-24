@@ -1,8 +1,6 @@
 package fudan.secsys.benchmark;
 
 import android.os.Bundle;
-import android.os.StrictMode;
-import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
