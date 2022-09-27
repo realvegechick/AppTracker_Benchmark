@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import fudan.secsys.benchmark.R;
 import fudan.secsys.benchmark.utils.EnvCheckUtils;
+import fudan.secsys.benchmark.utils.InvokeServiceUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -141,6 +142,36 @@ public class PlaceholderFragment extends Fragment {
     private  View createInvokeServiceView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View root = inflater.inflate(R.layout.fragment_invokeservice, container, false);
         final TextView textView = root.findViewById(R.id.section_label);
+        root.findViewById(R.id.service1).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service1 feedback:"+ InvokeServiceUtils.callVibratorService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.service2).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service2 feedback:"+ InvokeServiceUtils.callClipboardService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.service3).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service3 feedback:"+ InvokeServiceUtils.callPowerManagerService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.service4).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service4 feedback:"+ InvokeServiceUtils.callActivityManagerService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.service5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service3 feedback:"+InvokeServiceUtils.callLocationManagerService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
         textView.setText("Hello from 系统服务");
         return root;
     }
