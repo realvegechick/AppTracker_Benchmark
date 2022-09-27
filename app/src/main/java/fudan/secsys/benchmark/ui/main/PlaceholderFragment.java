@@ -169,7 +169,13 @@ public class PlaceholderFragment extends Fragment {
         root.findViewById(R.id.service5).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Service3 feedback:"+InvokeServiceUtils.callLocationManagerService(view.getContext()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Service5 feedback:"+InvokeServiceUtils.callLocationManagerService(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.service6).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service6 feedback:"+InvokeServiceUtils.callWifiService(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
         textView.setText("Hello from 系统服务");
