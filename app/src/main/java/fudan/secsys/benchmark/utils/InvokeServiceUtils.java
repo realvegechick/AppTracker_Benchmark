@@ -1,27 +1,46 @@
 package fudan.secsys.benchmark.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.ClipboardManager;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.hardware.biometrics.BiometricManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CameraManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.media.AudioManager;
+import android.media.MediaRecorder;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.PowerManager;
 import android.os.Vibrator;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.telephony.gsm.GsmCellLocation;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+
+import java.net.NetworkInterface;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class InvokeServiceUtils {
     private static void showDialog(Context context, String msg) {
@@ -135,15 +154,15 @@ public class InvokeServiceUtils {
         return false;
     }
 
-    public static boolean callWifiService(Context context){
+    public static boolean callWifiService(Context context) {
         WifiManager mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         boolean wifiEnabled = mWifiManager.isWifiEnabled();
         int wifiState = mWifiManager.getWifiState();
         WifiInfo wifiinfo = mWifiManager.getConnectionInfo();
         String wifiName = wifiinfo.getSSID();
         int IPAddress = wifiinfo.getIpAddress();
-        String IP = new StringBuilder().append(IPAddress & 0xff).append(".").append((IPAddress>>8) &0xff).append(".")
-                .append((IPAddress>>16) & 0xff).append(".").append((IPAddress>>24) & 0xff).toString();
+        String IP = new StringBuilder().append(IPAddress & 0xff).append(".").append((IPAddress >> 8) & 0xff).append(".")
+                .append((IPAddress >> 16) & 0xff).append(".").append((IPAddress >> 24) & 0xff).toString();
         String MACAddress = wifiinfo.getMacAddress();
 
         String msg = "Test WifiService!!!" + "\n"
@@ -157,7 +176,67 @@ public class InvokeServiceUtils {
         return true;
     }
 
+    public static boolean callPackageManagerService(Context context) {
+        PackageManager mPackageManager = context.getPackageManager();
+        List<ApplicationInfo> applicationInfos = mPackageManager.getInstalledApplications(PackageManager.GET_UNINSTALLED_PACKAGES);
+        Collections.sort(applicationInfos, new ApplicationInfo.DisplayNameComparator(mPackageManager));
+        StringBuilder msg = new StringBuilder("Test PackageManagerService!!!" + "\n" + "Invoke getInstalledApplications() method! APP info: " + "\n");
+        for (ApplicationInfo applicationInfo : applicationInfos) {
+            String appName = applicationInfo.loadLabel(mPackageManager).toString();
+            String packageName = applicationInfo.packageName;
+            msg.append("APP name: ").append(appName).append("; ").append("Package name: ").append(packageName).append("\n");
+        }
+        showDialog(context, msg.toString());
 
+        return true;
+    }
 
+    public static boolean callAudioService(Context context) {
+        AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        boolean microphoneMute = mAudioManager.isMicrophoneMute();
+        int ringerMode = mAudioManager.getRingerMode();
+        mAudioManager.adjustVolume(AudioManager.ADJUST_RAISE, AudioManager.STREAM_MUSIC);
+        int streamVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+
+        String msg = "Test AudioService!!!" + "\n"
+                + "Invoke isMicrophoneMute() method! -> Return: " + microphoneMute + "\n"
+                + "Invoke getRingerMode() method! -> Return: " + ringerMode + "\n"
+                + "Invoke adjustVolume() method!" + "\n"
+                + "Invoke getStreamVolume() method! -> Return: " + streamVolume;
+        showDialog(context, msg);
+
+        return true;
+    }
+
+    public static boolean callCameraService(Context context) {
+        CameraManager mCameraManager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        String[] cameraIdList = null;
+        try {
+            cameraIdList = mCameraManager.getCameraIdList();
+            CameraCharacteristics cameraCharacteristics = mCameraManager.getCameraCharacteristics(String.valueOf(0));
+
+            String msg = "Test CameraService!!!" + "\n"
+                    + "Invoke getCameraIdList() method! -> Return: " + Arrays.toString(cameraIdList) + "\n"
+                    + "Invoke getCameraCharacteristics() method! -> Return: " + cameraCharacteristics;
+            showDialog(context, msg);
+
+            return true;
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public static boolean callBiometricService(Context context){
+        BiometricManager mBiometricManager = (BiometricManager) context.getSystemService(Context.BIOMETRIC_SERVICE);
+        int canAuth =  mBiometricManager.canAuthenticate();
+
+        String msg = "Test BiometricService!!!" + "\n"
+                + "Invoke canAuthenticate() method! -> Return: " + canAuth;
+        showDialog(context, msg);
+        
+        return  true;
+    }
 
 }
