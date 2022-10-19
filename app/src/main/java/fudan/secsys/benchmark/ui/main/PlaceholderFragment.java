@@ -64,6 +64,8 @@ public class PlaceholderFragment extends Fragment {
         magiskView.setText("Magisk: Unknown");
         final TextView emulatorView = root.findViewById(R.id.emulator_label);
         emulatorView.setText("Emulator: Unknown");
+        final TextView selinuxView = root.findViewById(R.id.selinux_label);
+        selinuxView.setText("Selinux: Unknown");
         root.findViewById(R.id.checkRoot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,12 +138,26 @@ public class PlaceholderFragment extends Fragment {
                 emulatorView.setText("Emulator: "+res);
             }
         });
+        root.findViewById(R.id.checkSelinux).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean res=EnvCheckUtils.checkSelinux();
+                if(res){
+                    selinuxView.setTextColor(getResources().getColor(R.color.green));
+                    selinuxView.setText("Selinux: Enforcing");
+                }
+                else{
+                    selinuxView.setTextColor(getResources().getColor(R.color.red));
+                    selinuxView.setText("Selinux: Permissive");
+                }
 
+            }
+        });
         return root;
     }
     private  View createInvokeServiceView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         final View root = inflater.inflate(R.layout.fragment_invokeservice, container, false);
-        final TextView textView = root.findViewById(R.id.section_label);
+
         root.findViewById(R.id.service1).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -203,7 +219,6 @@ public class PlaceholderFragment extends Fragment {
             }
         });
 
-        textView.setText("Hello from 系统服务");
         return root;
     }
 

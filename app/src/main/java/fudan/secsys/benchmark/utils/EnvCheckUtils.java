@@ -101,6 +101,25 @@ public class EnvCheckUtils {
         return false;
     }
 
+    static public boolean checkSelinux(){
+        try {
+            Process ps=Runtime.getRuntime().exec("getenforce");
+            ps.waitFor();
+            InputStream in=ps.getInputStream();
+            BufferedReader read = new BufferedReader(new InputStreamReader(in));
+            String line;
+            while((line=read.readLine())!=null) {
+                Log.i(TAG,line);
+                if (line.contains("Permissive")) {
+                    return false;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     static public boolean checkEmulator(Context context){
         int suspectCount = 0;
         String baseBandVersion = getProperty("gsm.version.baseband");
