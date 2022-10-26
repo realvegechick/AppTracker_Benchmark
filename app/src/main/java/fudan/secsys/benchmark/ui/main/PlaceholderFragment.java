@@ -218,6 +218,31 @@ public class PlaceholderFragment extends Fragment {
                 Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.callBiometricService(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
+        root.findViewById(R.id.api1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.adjustAlarmVolume(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.api2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.adjustMusicVoluem(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.api3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.wifiEnable(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        root.findViewById(R.id.api4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.addContent2Clipboard(view.getContext()), Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return root;
     }

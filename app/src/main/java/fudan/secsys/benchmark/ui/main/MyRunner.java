@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.nio.file.Paths;
+
 import fudan.secsys.benchmark.R;
 import fudan.secsys.benchmark.utils.EnvCheckUtils;
 
@@ -23,7 +26,6 @@ public class MyRunner implements Runnable {
         total=n;
         start=s;
         end=e;
-
     }
     @Override
     public void run() {

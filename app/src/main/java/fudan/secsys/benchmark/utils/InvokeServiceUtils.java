@@ -238,5 +238,29 @@ public class InvokeServiceUtils {
         
         return  true;
     }
+    /*
+     *API细化部分
+     */
+    public static boolean adjustAlarmVolume(Context context){
+        AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,AudioManager.ADJUST_RAISE,AudioManager.FLAG_SHOW_UI);
+        return true;
+    }
+    public static boolean adjustMusicVoluem(Context context){
+        AudioManager mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,AudioManager.ADJUST_RAISE,AudioManager.FLAG_SHOW_UI);
+        return true;
+    }
+    public static boolean wifiEnable(Context context){
+        WifiManager mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        mWifiManager.setWifiEnabled(true);
+        return true;
+    }
+    public static boolean addContent2Clipboard(Context context){
+        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText(null,"剪贴板中的数据");
+        mClipboardManager.setPrimaryClip(clipData);
+        return true;
+    }
 
 }
