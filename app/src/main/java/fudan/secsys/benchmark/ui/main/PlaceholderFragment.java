@@ -221,25 +221,25 @@ public class PlaceholderFragment extends Fragment {
         root.findViewById(R.id.api1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.adjustAlarmVolume(view.getContext()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Service11 feedback:"+InvokeServiceUtils.adjustAlarmVolume(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
         root.findViewById(R.id.api2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.adjustMusicVoluem(view.getContext()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Service12 feedback:"+InvokeServiceUtils.adjustMusicVoluem(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
         root.findViewById(R.id.api3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.wifiEnable(view.getContext()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Service13 feedback:"+InvokeServiceUtils.startCall(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
         root.findViewById(R.id.api4).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Service10 feedback:"+InvokeServiceUtils.addContent2Clipboard(view.getContext()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Service14 feedback:"+InvokeServiceUtils.startSend(view.getContext()), Toast.LENGTH_SHORT).show();
             }
         });
 

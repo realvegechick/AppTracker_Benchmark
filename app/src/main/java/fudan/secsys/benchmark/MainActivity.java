@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        requestPermissions(new String[]{Manifest.permission.CHANGE_NETWORK_STATE},1);
+        requestPermissions(new String[]{Manifest.permission.CHANGE_NETWORK_STATE,Manifest.permission.CALL_PHONE},1);
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);

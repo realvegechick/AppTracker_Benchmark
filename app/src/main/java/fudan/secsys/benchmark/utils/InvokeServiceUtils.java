@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.ClipboardManager;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
@@ -21,6 +22,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
@@ -262,5 +264,22 @@ public class InvokeServiceUtils {
         mClipboardManager.setPrimaryClip(clipData);
         return true;
     }
+    public static boolean startCall(Context context){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:10086"));
+        context.startActivity(intent);
+        return true;
+    }
+    public static boolean startSend(Context context){
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain"); //分享的是文本类型
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "文本内容");//分享出去的内容
+//        context.startActivity(shareIntent);    //注意这里的变化
 
+        context.startActivity(Intent.createChooser(shareIntent, "分享一下"));
+
+        return true;
+    }
 }
