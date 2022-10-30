@@ -13,8 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfbbb3c4-0ef8-44c2-9875-c6b019edb7c9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/fudan/secsys/benchmark/utils/InvokeServiceUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fudan/secsys/benchmark/utils/InvokeServiceUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/fudan/secsys/benchmark/ui/main/PlaceholderFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/fudan/secsys/benchmark/ui/main/PlaceholderFragment.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

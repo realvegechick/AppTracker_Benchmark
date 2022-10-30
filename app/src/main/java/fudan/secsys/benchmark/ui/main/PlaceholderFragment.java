@@ -83,7 +83,8 @@ public class PlaceholderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String res=EnvCheckUtils.checkBuild();
-                if(res.contains("test")||res.contains("debug")||res.contains("eng")){
+//               if(res.contains("test")||res.contains("debug")||res.contains("eng")){
+                if(res.contains("debug")||res.contains("eng")){
                     buildView.setTextColor(getResources().getColor(R.color.red));
                 }
                 else{
