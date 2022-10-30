@@ -276,9 +276,9 @@ public class InvokeServiceUtils {
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain"); //分享的是文本类型
         shareIntent.putExtra(Intent.EXTRA_TEXT, "文本内容");//分享出去的内容
-//        context.startActivity(shareIntent);    //注意这里的变化
+        context.startActivity(shareIntent);    //注意这里的变化
 
-        context.startActivity(Intent.createChooser(shareIntent, "分享一下"));
+//        context.startActivity(Intent.createChooser(shareIntent, "分享一下"));
 
         return true;
     }
